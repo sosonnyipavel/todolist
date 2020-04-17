@@ -4,14 +4,13 @@ import { addTask } from '../actions';
 import ListForm from './ListForm';
 
 class AddTask extends React.Component{
-    
     onSubmit = (formValues) => {
         this.props.addTask(formValues);
-        console.log(formValues);
+
     };
     render() {
         return (
-            <ListForm onSubmit={this.onSubmit} />
+            <ListForm onSubmit={this.onSubmit}/>
         );
     }
     
