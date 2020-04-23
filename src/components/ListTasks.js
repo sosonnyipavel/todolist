@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { deleteTask } from '../actions';
+import { deleteTask, doneTask } from '../actions';
 import './ButtonDisplay.css';
 
 class ListTasks extends React.Component {
@@ -10,13 +10,13 @@ class ListTasks extends React.Component {
                 <div className="item" key={task}>
                     <div className="ui left floated compact segment">
                         <div className="ui fitted slider checkbox">
-                            <input type="checkbox" name="doneTask" checked={this.props.checked} onChange={this.classChange} />
+                            <input type="checkbox" checked={this.props.checked} name="doneTask" onChange={this.onChange} />
                             <label></label>
                         </div>
                     </div>
                     <div className="content">{task}</div>
                     <div className="right floated content">
-                        <button className={this.className} onClick={() => this.props.deleteTask(task)}>
+                        <button className="ui inverted red button" style={{ display: this.props.checked === true ? 'block' : 'none' }} onClick={() => this.props.deleteTask(task)}>
                             Delete
                         </button>
                     </div>
@@ -24,17 +24,12 @@ class ListTasks extends React.Component {
             );
         });
     }
-
-    classChange = (event) => {
-        let className = "notDone";
-        const checked = event.target.checked;
+    onChange = (event) => {
+        const target = event.target;
+        const checked = target.checked;
         console.log(checked);
-            if (checked === true){
-                className="ui inverted red button";
-                console.log(className);
-            }
-            return className;
-     };
+        this.props.doneTask(checked);
+    };
 
     render() {
         return (
@@ -50,4 +45,4 @@ const mapStateToProps = (state) => {
     };
 }
 
-export default connect(mapStateToProps, {deleteTask}) (ListTasks);
+export default connect(mapStateToProps, {deleteTask, doneTask}) (ListTasks);

@@ -1,15 +1,19 @@
 import { combineReducers } from 'redux';
 import {reducer as formReducer } from 'redux-form';
-import { ADD_TASK, DELETE_TASK } from '../actions/types';
+import { ADD_TASK, DELETE_TASK, DONE_TASK } from '../actions/types';
 
 
 const listTasksReducer = (state = [], action) => {
-    if (action.type === ADD_TASK) {
-        return [...state, action.payload.task.input]
-    } else if (action.type === DELETE_TASK) {
-        return state.filter(task => task !== action.payload.task);
+    switch (action.type) {
+        case ADD_TASK:
+            return [...state, action.payload.task.input]
+        case DELETE_TASK:
+            return state.filter(task => task !== action.payload.task);
+        case DONE_TASK:
+            return [...state, {checked: !action.payload.checked}]
+        default:
+            return state;
     }
-    return state;
 };
 
 
