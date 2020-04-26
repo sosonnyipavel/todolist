@@ -1,22 +1,21 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { deleteTask, doneTask } from '../actions';
-import './ButtonDisplay.css';
 
 class ListTasks extends React.Component {
     renderList() {
         return this.props.tasks.map((task) => {
             return (
-                <div className="item" key={task}>
+                <div className="item" key={task.id}>
                     <div className="ui left floated compact segment">
                         <div className="ui fitted slider checkbox">
-                            <input type="checkbox" checked={this.props.checked} name="doneTask" onChange={this.onChange} />
+                            <input type="checkbox" checked={task.checked} name="doneTask" onChange={() => this.props.doneTask(task.id)} />
                             <label></label>
                         </div>
                     </div>
-                    <div className="content">{task}</div>
+                    <div className="content"> {task.text} {console.log(task)} </div>
                     <div className="right floated content">
-                        <button className="ui inverted red button" style={{ display: this.props.checked === true ? 'block' : 'none' }} onClick={() => this.props.deleteTask(task)}>
+                        <button className="ui inverted red button" style = {{ display: task.checked === true ? 'block' : 'none' }} onClick={() => this.props.deleteTask(task.id)}>
                             Delete
                         </button>
                     </div>
@@ -24,12 +23,6 @@ class ListTasks extends React.Component {
             );
         });
     }
-    onChange = (event) => {
-        const target = event.target;
-        const checked = target.checked;
-        console.log(checked);
-        this.props.doneTask(checked);
-    };
 
     render() {
         return (
@@ -41,7 +34,7 @@ class ListTasks extends React.Component {
 }
 const mapStateToProps = (state) => {
     return { 
-        tasks: state.tasks,
+        tasks: state.tasks
     };
 }
 

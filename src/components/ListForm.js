@@ -21,6 +21,7 @@ class ListForm extends React.Component{
                 <button className="ui inverted primary button">ADD</button>
             </form>
         );
+        
     }
 }
 export default reduxForm({

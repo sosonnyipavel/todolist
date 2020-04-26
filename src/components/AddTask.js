@@ -6,7 +6,6 @@ import ListForm from './ListForm';
 class AddTask extends React.Component{
     onSubmit = (formValues) => {
         this.props.addTask(formValues);
-
     };
     render() {
         return (
